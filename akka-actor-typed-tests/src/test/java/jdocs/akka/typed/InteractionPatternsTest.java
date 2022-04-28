@@ -590,6 +590,9 @@ public class InteractionPatternsTest extends JUnitSuite {
         this.replyTo = replyTo;
         this.keyCabinet = keyCabinet;
         this.drawer = drawer;
+        
+        keyCabinet.tell(new KeyCabinet.GetKeys(whoIsLeaving, context.getSelf().narrow()));
+        drawer.tell(new Drawer.GetWallet(whoIsLeaving, context.getSelf().narrow()));
       }
 
       @Override
