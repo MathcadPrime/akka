@@ -945,4 +945,14 @@ public class InteractionPatternsTest extends JUnitSuite {
     ActorRef<Samples.Hal.Command> hal = testKit.spawn(Samples.Hal.create());
     ActorRef<Samples.Dave.Command> dave = testKit.spawn(Samples.Dave.create(hal));
   }
+  
+  @Test
+  public void leaveHomeExample() {
+    TestProbe<Home.ReadyToLeaveHome> testProbe = testKit.createTestProbe();
+
+    ActorRef<Home.Command> underTest = testKit.spawn(Home.create(), "home");
+    underTest.tell(new Home.LeaveHome("me", testProbe.getRef()));
+    
+    testProbe.expectMessageClass(Home.ReadyToLeaveHome.class);
+  }
 }
